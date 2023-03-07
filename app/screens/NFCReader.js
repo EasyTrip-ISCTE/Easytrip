@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet,TouchableOpacity, Image } from 'react-native';
-//import NfcManager from 'react-native-nfc-manager';
+import NfcManager from 'react-native-nfc-manager';
 
 function NFCReader({navigation}) {
 
     const [hasNfc, setHasNfc] = useState(null);
+    const nfc = false;
 
     useEffect(() => {
 
         async function checkNFC(){
-            //setHasNfc(await NfcManager.isSupported());
+            setHasNfc(await NfcManager.isSupported());
+            nfc = await NfcManager.isSupported();
+            console.log("Stop",nfc);
         }
 
+        console.log("Estou aqui " ,nfc);
+
         checkNFC();
+        console.log("Estou aqui 1" ,nfc);
     },[]);
 
-    if(hasNfc === null){
+    /*if(nfc === null){
         return null;
-    }
-    else if (!hasNfc){
+    }*/
+    //console.log(nfc);
+    if (!nfc){
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Your device doesn't support NFC</Text>
